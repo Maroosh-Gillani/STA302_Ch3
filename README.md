@@ -1,2 +1,2 @@
-# STA302_Ch3
-* Testing; please commit and push properly
+# STA302 Tutorial 2
+* ...
