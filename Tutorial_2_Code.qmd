@@ -5,6 +5,9 @@ format: html
 ---
 
 ```{r}
+#### Preamble ####
+# Purpose: Analyzing ticketed offences in Toronto over the years
+
 # Load libraries
 library(tidyverse)
 library(dplyr)
@@ -29,11 +32,14 @@ head(data)
 # Visualizing the data through a bar graph
 
 # Create a bar plot of total quantity of crimes by year
-ggplot(data, aes(x = OFFENCE_YEAR, fill = OFFENCE_CATEGORY)) +
+plot <- ggplot(data, aes(x = OFFENCE_YEAR, fill = OFFENCE_CATEGORY)) +
   geom_bar(position = "dodge", stat = "count") +
   labs(title = "Total Quantity of Ticketed Crimes by Year and Offence Category", x = "Year of Crime", y = "Quantity of Crimes") +
   scale_x_continuous(breaks = seq(min(data$OFFENCE_YEAR), max(data$OFFENCE_YEAR), by = 1)) +
   theme_minimal()
+
+# download the plot
+# ggsave("offence_quantity_plot.png", plot)
 
 ```
 Analysis:
