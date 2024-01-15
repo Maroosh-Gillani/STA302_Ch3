@@ -2,7 +2,6 @@
 title: "STA302 Tutorial 2"
 author: "Maroosh Gillani"
 format: html
-# Remember to cite appropriately (R, opendatatoronto etc.)
 ---
 
 ```{r}
@@ -13,7 +12,6 @@ library(opendatatoronto)
 
 # get package
 package <- show_package("police-annual-statistical-report-tickets-issued")
-package
  
 # get all resources for this package
 resources <- list_package_resources("police-annual-statistical-report-tickets-issued")
@@ -23,5 +21,28 @@ datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'
  
 # load the first datastore resource as a sample
 data <- filter(datastore_resources, row_number()==1) %>% get_resource()
-data
+head(data)
+
+# storing the data into a csv file
+# write_csv(x = data, file = "issued_ticket_reports.csv")
+
+# Visualizing the data through a bar graph
+
+# Create a bar plot of total quantity of crimes by year
+ggplot(data, aes(x = OFFENCE_YEAR, fill = OFFENCE_CATEGORY)) +
+  geom_bar(position = "dodge", stat = "count") +
+  labs(title = "Total Quantity of Ticketed Crimes by Year and Offence Category", x = "Year of Crime", y = "Quantity of Crimes") +
+  scale_x_continuous(breaks = seq(min(data$OFFENCE_YEAR), max(data$OFFENCE_YEAR), by = 1)) +
+  theme_minimal()
+
+```
+Analysis:
+The graph and data show that over the years, reasons people receive tickets remain generally consistent, with the least common reason being Distracted Driving, and the most common reason being between Aggressive Driving and ALL CAIA. However, it is important to note that the Other HTA category makes a large chunk of yearly offences, so it might be possible that there are reasons for receiving tickets even less common than Distracted Driving.
+
+References:
+```{r}
+citation()
+citation("tidyverse")
+citation("dplyr")
+citation("opendatatoronto")
 ```
